@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operation Successful</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {% if action == 'lock' %}
+            <h1>✅ Text Successfully Hidden!</h1>
+            
+            <div class="result-info">
+                <div class="key-display">
+                    <h3>🔑 Your Encryption Key:</h3>
+                    <div class="key-box">
+                        <code id="encryptionKey">{{ key }}</code>
+                        <button onclick="copyToClipboard('{{ key }}')" class="btn-copy">Copy</button>
+                    </div>
+                    <p class="warning">⚠️ Save this key! You'll need it to extract the text later.</p>
+                </div>
+                
+                <a href="{{ url_for('download_image', session_id=session_id) }}" class="btn btn-primary">
+                    📥 Download Encoded Image
+                </a>
+            </div>
+            
+        {% elif action == 'unlock' %}
+            <h1>✅ Text Successfully Extracted!</h1>
+            
+            <div class="result-info">
+                <div class="text-display">
+                    <h3>📝 Hidden Text:</h3>
+                    <div class="text-box">
+                        <p>{{ extracted_text }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        
+        <div class="action-buttons">
+            <a href="{{ url_for('cleanup', session_id=session_id) }}" class="btn btn-secondary">
+                🏠 Back to Home
+            </a>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Key copied to clipboard!');
+            }, function(err) {
+                console.error('Could not copy text: ', err);
+            });
+        }
+    </script>
+</body>
+</html>
