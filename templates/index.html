@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Steganography</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🔒 Image Steganography Tool</h1>
+        <p>Hide and extract secret messages in images with encryption</p>
+        
+        <div class="options">
+            <div class="option-card">
+                <h2>🔐 Lock Text in Image</h2>
+                <p>Hide your secret message in an image</p>
+                <a href="{{ url_for('lock') }}" class="btn btn-primary">Lock Text</a>
+            </div>
+            
+            <div class="option-card">
+                <h2>🔓 Unlock Text from Image</h2>
+                <p>Extract hidden message from an image</p>
+                <a href="{{ url_for('unlock') }}" class="btn btn-secondary">Unlock Text</a>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
