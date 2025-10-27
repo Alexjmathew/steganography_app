@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock Text from Image</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🔓 Unlock Text from Image</h1>
+        
+        <form method="POST" enctype="multipart/form-data" class="stego-form">
+            <div class="form-group">
+                <label for="image">Select Encoded Image:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+                <small>Select the image containing hidden text</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="key">Decryption Key:</label>
+                <input type="text" id="key" name="key" placeholder="Enter the encryption key" required>
+                <small>This is the key that was generated when the text was hidden</small>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Extract Hidden Text</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message error">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
