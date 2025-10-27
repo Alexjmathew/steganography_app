@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lock Text in Image</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 Lock Text in Image</h1>
+        
+        <form method="POST" enctype="multipart/form-data" class="stego-form">
+            <div class="form-group">
+                <label for="image">Select Image:</label>
+                <input type="file" id="image" name="image" accept="image/*" required>
+                <small>Supported formats: PNG, JPEG, BMP</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="text">Secret Text to Hide:</label>
+                <textarea id="text" name="text" rows="4" placeholder="Enter your secret message here..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="key">Encryption Key (Optional):</label>
+                <input type="text" id="key" name="key" placeholder="Leave empty to generate a new key">
+                <small>If provided, must be a valid Fernet key. Save this key to decrypt later!</small>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Hide Text in Image</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for message in messages %}
+                        <div class="flash-message error">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
